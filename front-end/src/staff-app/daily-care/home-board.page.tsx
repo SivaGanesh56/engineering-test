@@ -32,6 +32,7 @@ export const HomeBoardPage: React.FC = () => {
   const [students, setStudents] = useState<Person[]>([]);
   const [getStudents, data, loadState] = useApi<{ students: Person[] }>({ url: "get-homeboard-students" });
 
+  const [ saveStudents ] = useApi<{ students: Person[] }>({ url: "save-roll" });
 
 
   useEffect(() => {
@@ -71,10 +72,15 @@ export const HomeBoardPage: React.FC = () => {
 
   const onActiveRollAction = (action: ActiveRollAction) => {
     if (action === "exit") {
-      setIsRollMode(false)
+      setIsRollMode(false);
     } else if (action === "complete") {
-      localStorage.setItem("updatedStudents", JSON.stringify(students));
-      // TODO: do better apporach here.......
+      const transformedStudents = students.map(({ id, status }) => ({
+        student_id: id,
+        roll_state: status || "unmark"
+      }));
+      saveStudents({
+        student_roll_states: transformedStudents
+      });
       window.location.href = "http://localhost:3000/staff/activity";
     }
   }
