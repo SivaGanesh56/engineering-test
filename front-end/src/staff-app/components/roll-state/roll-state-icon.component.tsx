@@ -19,6 +19,20 @@ export const RollStateIcon: React.FC<Props> = (props) => {
   )
 }
 
+interface Rrops {
+  type: RolllStateType
+  size?: number
+}
+
+export const RollerStateIcon: React.FC<Rrops> = (rrops) => {
+  const { type, size = 20 } = rrops
+  return (
+    <R.Icon size={size} border={type === "unmark"} bgColor={getBgColor(type)} >
+      <FontAwesomeIcon icon="check" size={size > 14 ? "lg" : "sm"} />
+    </R.Icon>
+  )
+}
+
 function getBgColor(type: RolllStateType) {
   switch (type) {
     case "unmark":
@@ -46,5 +60,20 @@ const S = {
     width: ${({ size }) => size}px;
     height: ${({ size }) => size}px;
     cursor: ${({ clickable }) => (clickable ? "pointer" : undefined)};
+  `,
+}
+
+
+const R = {
+  Icon: styled.div<{ size: number; border: boolean; bgColor: string;  }>`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    background-color: ${({ bgColor }) => bgColor};
+    border: 2px solid ${({ border }) => (border ? Colors.dark.lighter : "transparent")};
+    border-radius: ${BorderRadius.rounded};
+    width: ${({ size }) => size}px;
+    height: ${({ size }) => size}px;
   `,
 }
