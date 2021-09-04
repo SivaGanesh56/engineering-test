@@ -137,23 +137,34 @@ const Toolbar: React.FC<ToolbarProps> = (props) => {
 
   return (
     <S.ToolbarContainer>
-      <div onClick={() => onItemClick("sort")}>First Name</div>
+      <div style={{cursor : 'pointer'}} onClick={() => onItemClick("sort")}>First Name</div>
       {showInput
         ?
         <>
-          <input type="text" onChange={(e: React.ChangeEvent<HTMLInputElement>) => onItemClick("search", e.target.value)} />
-          <i className="fas fa-times" onClick={() => {
+          <input style = {cancelInput} type="text" onChange={(e: React.ChangeEvent<HTMLInputElement>) => onItemClick("search", e.target.value)} />
+          <i style = {cancelSearch} className="fas fa-times" onClick={() => {
             onItemClick("reset");
             setShowInput(false);
           }}/>
         </>
         :
-        <div onClick={() => setShowInput(true)}>Search</div>
+        <div style={{cursor : 'pointer'}} onClick={() => setShowInput(true)}>Search</div>
       }
-      <S.Button onClick={() => onItemClick("roll")}>Start Roll</S.Button>
+      <S.Button style={{cursor : 'pointer'}} onClick={() => onItemClick("roll")}>Start Roll</S.Button>
     </S.ToolbarContainer>
   )
 }
+
+const cancelSearch:any = {
+cursor: 'pointer',
+position: 'relative',
+right: '55px'
+}
+
+const cancelInput:any = {
+  position: 'relative',
+  left: '70px'
+  }
 
 const S = {
   PageContainer: styled.div`

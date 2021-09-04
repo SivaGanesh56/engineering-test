@@ -4,6 +4,8 @@ import { Spacing, BorderRadius, FontWeight } from "shared/styles/styles"
 import { Images } from "assets/images"
 import { Colors } from "shared/styles/colors"
 import { Person, PersonHelper } from "shared/models/person"
+import { RollInput } from "shared/models/roll"
+import { RollerStateIcon } from "staff-app/components/roll-state/roll-state-icon.component"
 import { RollStateSwitcher } from "staff-app/components/roll-state/roll-state-switcher.component"
 
 interface Props {
@@ -26,6 +28,23 @@ export const StudentListTile: React.FC<Props> = ({ isRollMode, student, onItemCl
     </S.Container>
   )
 }
+
+interface rollProps {
+  roll: RollInput,
+  size?: number
+}
+
+export const RollListTile: React.FC<rollProps> = ({ roll, size = 40, }) => {
+  let rollesData:any = roll
+  return (
+    <S.Container>
+      <S.Avatar url={Images.avatar}></S.Avatar>
+      <S.Content>{rollesData.student_id}</S.Content>
+      <RollerStateIcon type={rollesData.roll_state} size={size} />
+    </S.Container>
+  )
+}
+
 
 const S = {
   Container: styled.div`
